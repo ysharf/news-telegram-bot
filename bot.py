@@ -12,49 +12,15 @@ STATE_FILE = "state.json"
 BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
 CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID")
 
-# المصادر (38 مصدراً)
+# المصادر (7 مصادر رئيسية)
 FEEDS_DATABASE = {
-    "💻 تكنولوجيا - TechCrunch": "https://techcrunch.com/feed",
-    "💻 تكنولوجيا - Ars Technica": "http://feeds.arstechnica.com/arstechnica/index",
-    "💻 تكنولوجيا - The Verge": "https://www.theverge.com/rss/index.xml",
-    "💻 تكنولوجيا - Tom's Hardware": "https://www.tomshardware.com/feeds/all",
-    "💻 تكنولوجيا - AnandTech": "https://www.anandtech.com/rss",
-    "💻 تكنولوجيا - Microsoft News": "https://news.microsoft.com/feed/",
-    "💻 تكنولوجيا - Google Blog": "https://blog.google/rss/",
-    "💻 تكنولوجيا - OpenAI Blog": "https://openai.com/news/rss.xml",
-    "💻 تكنولوجيا - NVIDIA News": "https://nvidianews.nvidia.com/rss",
-    "💻 تكنولوجيا - AMD News": "https://ir.amd.com/news-events/press-releases/rss",
-    "💻 تكنولوجيا - Intel News": "https://newsroom.intel.com/news/rss.xml",
+    "💻 تقنية - TechCrunch": "https://techcrunch.com/feed",
+    "💻 تقنية - The Verge": "https://www.theverge.com/rss/index.xml",
     "🛡️ سيبراني - The Hacker News": "https://feeds.feedburner.com/TheHackersNews",
     "🛡️ سيبراني - BleepingComputer": "https://www.bleepingcomputer.com/feed/",
-    "🛡️ سيبراني - CISA": "https://www.cisa.gov/cybersecurity-advisories/all.xml",
-    "🛡️ سيبراني - NIST": "https://www.nist.gov/news-events/cybersecurity/rss.xml",
-    "🛡️ سيبراني - SANS ISC": "https://isc.sans.edu/rssfeed.xml",
-    "🛡️ سيبراني - Cisco Talos": "https://talosintelligence.com/rss",
-    "🛡️ سيبراني - Microsoft Security": "https://www.microsoft.com/en-us/security/blog/feed/",
-    "🛡️ سيبراني - Google Cloud Sec": "https://cloud.google.com/blog/products/identity-security/rss",
-    "🛡️ سيبراني - CrowdStrike": "https://www.crowdstrike.com/blog/feed/",
-    "🛡️ سيبراني - Palo Alto Unit42": "https://unit42.paloaltonetworks.com/feed/",
-    "🏆 برمجة - Codeforces Blog": "https://rsshub.app/codeforces/recent-actions",
-    "🏆 برمجة - AtCoder News": "https://rsshub.app/atcoder/contest/en",
-    "🏆 برمجة - USACO": "https://news.google.com/rss/search?q=site:usaco.org&hl=en-US",
-    "🏆 برمجة - IOI": "https://news.google.com/rss/search?q=site:ioinformatics.org&hl=en-US",
-    "🏆 برمجة - ICPC": "https://news.google.com/rss/search?q=site:icpc.global&hl=en-US",
-    "🏆 برمجة - Kattis": "https://news.google.com/rss/search?q=site:open.kattis.com&hl=en-US",
-    "🏆 برمجة - CSES": "https://news.google.com/rss/search?q=site:cses.fi&hl=en-US",
     "🌍 عالمي - Reuters": "https://news.google.com/rss/search?q=site:reuters.com&hl=en-US",
-    "🌍 عالمي - AP News": "https://news.google.com/rss/search?q=site:apnews.com&hl=en-US",
-    "🌍 عالمي - BBC World": "https://news.google.com/rss/search?q=site:bbc.com/news&hl=en-US",
-    "🌍 عالمي - DW": "https://news.google.com/rss/search?q=site:dw.com&hl=en-US",
-    "🌍 عالمي - AFP": "https://news.google.com/rss/search?q=site:afp.com&hl=en-US",
-    "⚔️ نزاعات - Reuters War": "https://news.google.com/rss/search?q=war+OR+conflict+site:reuters.com&hl=en-US",
-    "⚔️ نزاعات - AP War": "https://news.google.com/rss/search?q=war+OR+conflict+site:apnews.com&hl=en-US",
-    "⚔️ نزاعات - BBC War": "https://news.google.com/rss/search?q=war+OR+conflict+site:bbc.com/news&hl=en-US",
-    "⚔️ نزاعات - Al Jazeera Eng": "https://www.aljazeera.com/xml/rss/all.xml",
-    "🌍 إقليمي - Reuters Middle East": "https://news.google.com/rss/search?q=site:reuters.com/world/middle-east&hl=ar",
     "🌍 إقليمي - BBC Arabic": "https://feeds.bbci.co.uk/arabic/rss.xml",
-    "🌍 إقليمي - Al Jazeera Arabic": "https://www.aljazeera.net/aljazeerarss/all.xml",
-    "🌍 إقليمي - Sky News Arabia": "https://www.skynewsarabia.com/feed/rss.xml"
+    "🌍 إقليمي - Al Jazeera Arabic": "https://www.aljazeera.net/aljazeerarss/all.xml"
 }
 
 def load_sent_state():
@@ -105,7 +71,7 @@ def run_pipeline():
     sent_urls = set(state.get("sent_urls", []))
     newly_sent = []
 
-    print("بدء جلب الأخبار من 38 مصدراً...")
+    print("بدء جلب الأخبار من 7 مصادر...")
 
     for category, feed_url in FEEDS_DATABASE.items():
         try:
@@ -116,7 +82,7 @@ def run_pipeline():
             print(f"تخطي {category}: {e}")
             continue
 
-        for entry in parsed_feed.entries[:2]:
+        for entry in parsed_feed.entries[:1]:  # خبر واحد فقط من كل مصدر
             link = entry.get("link")
             title = entry.get("title")
 
